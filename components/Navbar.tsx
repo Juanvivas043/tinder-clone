@@ -27,12 +27,12 @@ export default function Navbar() {
                                 Encuentros
                         </Link>
                         <Link 
-                            href="/matches" 
+                            href="/messages" 
                             className="text-gray-700 dark:text-gray-300 hover:text-pink-600 dark:hover:text-pink-400 font-medium transition-colors duration-200">
                                 Mensajes
                         </Link>
                         <Link 
-                            href="/matches" 
+                            href="/profile" 
                             className="text-gray-700 dark:text-gray-300 hover:text-pink-600 dark:hover:text-pink-400 font-medium transition-colors duration-200">
                                 Perfil
                         </Link>
