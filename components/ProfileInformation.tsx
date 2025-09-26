@@ -95,7 +95,7 @@ export default async function ProfileInformation () {
 
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                                            Birthday
+                                            Fecha de Nacimiento
                                         </label>
                                         <p className="text-gray-900 dark:text-white">
                                             {new Date(profile.birthdate).toLocaleDateString()}
@@ -112,11 +112,11 @@ export default async function ProfileInformation () {
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                                            Age Range
+                                            Rango de Edad
                                         </label>
                                         <p className="text-gray-900 dark:text-white">
                                             {profile.preferences.age_range.min} -{" "}
-                                            {profile.preferences.age_range.max} years
+                                            {profile.preferences.age_range.max} Años
                                         </p>    
                                     </div>
                                     <div>
@@ -124,7 +124,7 @@ export default async function ProfileInformation () {
                                           Distance
                                         </label>
                                         <p className="text-gray-900 dark:text-white">
-                                          Up to {profile.preferences.distance} km
+                                          Hasta {profile.preferences.distance} km
                                         </p>
                                     </div>
                                 </div>
@@ -159,7 +159,7 @@ export default async function ProfileInformation () {
                                     </svg>
                                   </div>
                                   <span className="text-gray-900 dark:text-white">
-                                    Edit Profile
+                                    Editar Perfil
                                   </span>
                                 </div>
                                 <svg
@@ -183,11 +183,11 @@ export default async function ProfileInformation () {
                         <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
                             Cuenta
                         </h3>
-                        
+
                         <div className="space-y-3">
                             <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-700">
                                 <span className="text-gray-900 dark:text-white">
-                                    Username
+                                    Usuario
                                 </span>
                                 <span className="text-gray-500 dark:text-gray-400">
                                     @{profile.username}
