@@ -3,9 +3,20 @@ import Link from "next/link";
 import { getCurrentUserProfile } from "@/lib/actions/profile";
 import { UserProfile } from "@/lib/definitions";
 
+
+const genderTranslations = {
+  'male': 'Masculino',
+  'female': 'Femenino',
+  'other': 'Otro',
+
+};
+
 export default async function ProfileInformation () {
     const profile : UserProfile | null = await getCurrentUserProfile()
     await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    const englishGender = profile?.gender || 'other'; 
+    const spanishGender = genderTranslations[englishGender] || englishGender; 
 
     function calculateAge(birthdate : string) {
         const birthDate = new Date(birthdate)
@@ -63,12 +74,12 @@ export default async function ProfileInformation () {
                                     @{profile.username}
                                 </p>
                                 <p className="text-sm text-gray-500 dark:text-gray-500">
-                                    Member since{" "}
+                                    Miembro desde {" "}
                                     {new Date(profile.created_at).toLocaleDateString()}
                                 </p>
                             </div>
                         </div>
-                        
+                    
                         <div className="space-y-6">
                             <div>
                                 <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3">
@@ -89,7 +100,7 @@ export default async function ProfileInformation () {
                                             Género
                                         </label>
                                         <p className="text-gray-900 dark:text-white capitalize">
-                                            {profile.gender}
+                                            {spanishGender}
                                         </p>
                                     </div>
 
