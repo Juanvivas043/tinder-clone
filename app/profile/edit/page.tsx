@@ -254,14 +254,14 @@ export default function EditProfile() {
                               onClick={() => router.back()}
                               className="px-6 py-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors duration-200"
                             >
-                              Cancel
+                              Cancelar
                             </button>
                             <button
                               type="submit"
                               disabled={saving}
                               className="px-6 py-2 bg-gradient-to-r from-pink-500 to-red-500 text-white font-semibold rounded-lg hover:from-pink-600 hover:to-red-600 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
                             >
-                              {saving ? "Saving..." : "Save Changes"}
+                              {saving ? "Guardando..." : "Guardar cambios"}
                             </button>
                         </div>
                     </form>
