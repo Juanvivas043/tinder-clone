@@ -31,7 +31,7 @@ export default async function ProfileInformation () {
 
     if (!profile) {
         return (
-            <div className="min-h-screen bg-gradient-to-br from-pink-50 to-red-50 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center">
+            <div className="min-h-screen bg-gradient-to-br from-pink-50 to-red-50 dark:from-gray-900 dark:to-gray-800 flex items-start justify-center py-10">
                 <div className="text-center max-w-md mx-auto p-8">
                     <div className="w-24 h-24 bg-gradient-to-r from-red-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-6">
                         <span className="text-4xl">❌</span>

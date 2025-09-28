@@ -32,7 +32,7 @@ export default function Navbar() {
             <div className="container mx-auto px-6">
                 <div className="flex items-center justify-between h-16">
                     <Link href="/" className="flex items-center space-x-8">
-                        <span className="text-xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-200 bg-clip-text text-transparent">
+                        <span className="text-xl font-bold bg-gradient-to-r from-pink-400 to-white dark:from-pink-400 dark:to-white bg-clip-text text-transparent">
                             Matching
                         </span>
                     </Link>
@@ -43,7 +43,7 @@ export default function Navbar() {
                             <Link 
                                 key={item.href}
                                 href={item.href} 
-                                className="text-gray-700 dark:text-gray-300 hover:text-pink-600 dark:hover:text-pink-400 font-medium transition-colors duration-200">
+                                className="text-white dark:text-gray-300 hover:text-pink-600 dark:hover:text-pink-400 font-medium transition-colors duration-200">
                                     {item.label}
                             </Link>
                           )
@@ -81,7 +81,7 @@ export default function Navbar() {
                         )}
                     </div>
                     
-                    <button className="md:hidden p-2 text-gray-700 dark:text-gray-300 z-50" 
+                    <button className="md:hidden p-2 text-white dark:text-gray-300 z-50" 
                     onClick={() => setMobileIsMenuOpen(!isMobileMenuOpen)}
                     aria-label={isMobileMenuOpen ? "Close Menu": "Open Menu"}>
                         {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
