@@ -2,7 +2,7 @@ import ProfileInformation from "@/components/ProfileInformation";
 import { Suspense } from "react";
 import ProfileInformationSkeleton from "@/components/ProfileInformationSkeleton";
 
-export default function Profile() {
+export default function ProfilePage() {
     
     return (
         <div className="bg-gradient-to-br from-pink-50 to-red-50 dark:from-gray-900 dark:to-gray-800">
