@@ -10,6 +10,12 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/storage/v1/object/public/profile-photos/**', // O ajusta el path según necesites, pero solo con el hostname debería funcionar.
       },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        port: '',
+        pathname: '**',
+      },
     ],
     // Alternativamente, puedes usar solo la propiedad domains (funciona para versiones antiguas de Next.js o como fallback):
     // domains: ['ehtxvymwcrkmjshamkao.supabase.co'], 

@@ -2,7 +2,6 @@
 
 import { createClient } from "@/lib/supabase/server"
 import { UserProfile } from "../definitions"
-import { log } from "console"
 
 export async function getCurrentUserProfile() {
     const supabase = await createClient()
