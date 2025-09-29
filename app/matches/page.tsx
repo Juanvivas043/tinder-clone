@@ -17,7 +17,10 @@ export default function MatchesPage() {
                     <div className="text-center">
                         <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
                             Encuentra Tu Futura Pareja
-                        </h1>  
+                        </h1>
+                        <p className="text-lg text-gray-600 dark:text-gray-400">
+                            Descubre a personas que se adapten a tu estilo de vida y disfruten juntos.
+                        </p>
                     </div>
                 </header>
 

@@ -1,37 +1,42 @@
+// src/components/ClientMatchesSkeleton.tsx
+
 export default function MatchCardSkeleton() {
   return (
-    <div className="relative w-full max-w-sm mx-auto animate-pulse">
-      {/* El contador de perfiles NO va aquí arriba,
-        va al final, después de la tarjeta.
-      */}
-
-      <div className="card-swipe aspect-[3/4] overflow-hidden">
-        {/* Espacio para la imagen */}
-        <div className="relative w-full h-full bg-gray-300 dark:bg-gray-700" />
-
-        {/* Gradiente oscuro en la parte inferior */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-
-        {/* Contenedor para el texto del usuario */}
-        <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-          <div className="flex items-end justify-between">
-            <div className="w-full">
-              {/* Espacio para el nombre y la edad */}
-              <div className="h-6 w-3/4 bg-gray-400 dark:bg-gray-600 rounded-md mb-2" />
-              {/* Espacio para el nombre de usuario */}
-              <div className="h-4 w-1/2 bg-gray-400 dark:bg-gray-600 rounded-md mb-2" />
-              {/* Espacio para la biografía */}
-              <div className="h-4 w-full bg-gray-400 dark:bg-gray-600 rounded-md mb-2" />
-              <div className="h-4 w-4/5 bg-gray-400 dark:bg-gray-600 rounded-md" />
+    // 1. Contenedor principal: Mantiene el gradiente original
+    <div className="max-w-md mx-auto bg-gradient-to-br from-pink-300 to-red-500 p-7 rounded-2xl shadow-lg animate-pulse">
+      
+      {/* 2. Contenedor de la Tarjeta (MatchCard Skeleton) */}
+      <div className="mb-4">
+        <div className="w-full max-w-sm mx-auto">
+          <div className="card-swipe aspect-[3/4] overflow-hidden rounded-xl">
+            {/* Esqueleto de la Imagen: Usamos un gris claro/medio */}
+            <div className="relative w-full h-full bg-gray-200 dark:bg-gray-500" /> 
+            
+            {/* Gradiente y texto de la tarjeta */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+            
+            <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+              <div className="w-full">
+                {/* Esqueleto de Nombre y Edad (Usamos gris muy claro/blanco) */}
+                <div className="h-6 w-3/4 bg-gray-100 dark:bg-gray-300 rounded-md mb-2" />
+                
+                {/* Esqueleto de Username */}
+                <div className="h-4 w-1/3 bg-gray-100 dark:bg-gray-300 rounded-md mb-2" />
+                
+                {/* Esqueleto de Bio (líneas múltiples) */}
+                <div className="h-4 w-full bg-gray-100 dark:bg-gray-300 rounded-md mb-2" />
+                <div className="h-4 w-4/5 bg-gray-100 dark:bg-gray-300 rounded-md" />
+              </div>
             </div>
           </div>
         </div>
       </div>
-      
-      {/* DIV del contador de perfiles - AHORA ABAJO, fuera de la tarjeta */}
-      <div className="mb-4 mt-6"> {/* Agregado mt-6 para espacio */}
-        {/* Usamos un div gris para simular el texto del contador */}
-        <div className="h-6 w-1/2 mx-auto bg-gray-300 dark:bg-gray-700 rounded-full" />
+
+      {/* 3. Contenedor del Contador de Perfiles (Skeleton) */}
+      <div className="mb-4 pt-4">
+        {/* Fondo del contador: Replicamos el bg-white del diseño original */}
+        <div className="bg-white p-2 rounded-full h-11 shadow-lg w-2/3 mx-auto">
+        </div>
       </div>
     </div>
   );

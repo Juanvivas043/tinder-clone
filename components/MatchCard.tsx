@@ -15,9 +15,9 @@ function calculateAge(birthdate : string) {
 
 export default function MatchCard({ user }: {user: UserProfile }) {
     return (
-        <div className="relative w-full max-w-sm mx-auto">
+        <div className="w-full max-w-sm mx-auto">
             <div className="card-swipe aspect-[3/4] overflow-hidden">
-                <div className="relative w-full h-full">
+                <div className="w-full h-full">
                     <Image
                         fill
                         priority
