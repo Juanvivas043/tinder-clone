@@ -77,7 +77,7 @@ export async function likeUser(toUserId: string) {
         throw new Error("Fallo al crear el like")
     }
 
-    const { data: existingLike, error: checkError} = await supabase.from("likes").select("*").eq("from_user_id", toUserId).eq("to_user_id", user.id).single()
+    const { data: existingLike, error: checkError} = await supabase.from("likes").select("*").eq("from_user_id", toUserId).eq("to_user_id", user.id).single()    
 
     if (checkError && checkError.code !== "PGRST116")  {
         throw new Error ("Fallo al buscar para match")
