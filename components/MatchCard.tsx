@@ -11,7 +11,7 @@ function calculateAge(birthdate : string) {
     }
     return age
 
-    }
+}
 
 export default function MatchCard({ user }: {user: UserProfile }) {
     return (
