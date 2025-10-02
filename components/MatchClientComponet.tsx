@@ -15,7 +15,7 @@ export default function ClientMatches({ potentialMatches }: {potentialMatches: U
     const currentPotentialMatch = potentialMatches[currentIndex]
 
     async function handleLike() {
-        if (currentIndex < potentialMatches.length - 1) {
+        if (currentIndex <= potentialMatches.length - 1) {
            const likedUser = potentialMatches[currentIndex] 
            
            try {
@@ -37,7 +37,7 @@ export default function ClientMatches({ potentialMatches }: {potentialMatches: U
 
     {/* Crear la tabla para no mostar de nuevo una persona al hacer pass, tarea de hoy*/}
     function handlePass() {
-        if (currentIndex < potentialMatches.length - 1) {
+        if (currentIndex <= potentialMatches.length - 1) {
             setCurrentIndex(currentIndex + 1)
         }
     }
@@ -48,6 +48,18 @@ export default function ClientMatches({ potentialMatches }: {potentialMatches: U
 
     function handleStartChat() {
 
+    }
+
+    if (currentIndex > potentialMatches.length - 1) {
+        return (
+            <div className="max-w-md mx-auto bg-gradient-to-br from-pink-300 to-red-500 p-7 rounded-2xl shadow-lg">
+                <div className="p-8">
+                    <p className="text-center text-lg text-gray-900 bg-white p-2 rounded-full shadow-lg w-2/3 mx-auto">
+                        No hay más perfiles disponibles
+                    </p>
+                </div>
+            </div>
+        )
     }
 
     return (
