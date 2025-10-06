@@ -38,7 +38,8 @@ export default function Navbar() {
                     </Link>
 
                     <div className="hidden md:flex items-center space-x-8">
-                        {navItems.map((item) => {
+                      {user ? (
+                        navItems.map((item) => {
                           return (
                             <Link 
                                 key={item.href}
@@ -47,7 +48,7 @@ export default function Navbar() {
                                     {item.label}
                             </Link>
                           )
-                        })}
+                        })) : ""}
                     </div>
 
                     <div className="hidden md:flex items-center space-x-4">
@@ -89,17 +90,18 @@ export default function Navbar() {
 
                     <div className={"flex flex-col items-center justify-center bg-slate-900/95 inset-0 fixed backdrop-blur-sm transition-all divide-neutral-300 gap-6" +
                       (isMobileMenuOpen ? " opacity-100 pointer-events-auto" : " opacity-0 pointer-events-none")}>
-                        {navItems.map((item) => {
-                          return (
-                            <Link 
-                                key={item.href}
-                                href={item.href} 
-                                onClick={() => setMobileIsMenuOpen(!isMobileMenuOpen)}
+                        {user ? (
+                          navItems.map((item) => {
+                            return (
+                              <Link 
+                                  key={item.href}
+                                  href={item.href} 
+                                  onClick={() => setMobileIsMenuOpen(!isMobileMenuOpen)}
                                 className="text-white text-lg font-medium py-2 block w-full text-center transition-colors duration-200 hover:bg-neutral-800">
                                     {item.label}
                             </Link>
                           )
-                        })}
+                        })) : ""}
                         {user ? (
                           <button
                             onClick={()=> {

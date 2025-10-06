@@ -95,3 +95,55 @@ export async function likeUser(toUserId: string) {
 
     return { success: true, isMatch: false }
 }
+
+
+export async function getMatchesList() {
+    const supabase = await createClient()
+
+    const {data: {user}} = await supabase.auth.getUser() 
+
+    if (!user) {
+        throw new Error ("No autenticado")
+    } 
+
+    const {data: matches, error} = await supabase.from("matches").select("*").or(`user1_id.eq.${user.id}, user2_id.eq.${user.id}`).eq("is_active", true)
+
+    if (error) {
+        throw new Error("Fallo al cargar los usuarios")
+    }
+
+    const matchedUser: UserProfile[] = []
+
+    for (const match of matches || []) {
+        const otherUserId = match.user1_id === user.id ? match.user2_id : match.user1_id
+
+        const {data: otherUser, error: userError} = await supabase.from("users").select("*").eq("id", otherUserId).single()
+
+        if (userError) {
+            continue
+        }
+
+        matchedUser.push({
+            id: otherUser.id,
+            full_name: otherUser.full_name,
+            username: otherUser.username,
+            email: "",
+            gender: otherUser.gender,
+            birthdate: otherUser.birthdate,
+            bio: otherUser.bio,
+            avatar_url: otherUser.avatar_url,
+            preferences: otherUser.preferences,
+            location_lat: undefined,
+            location_lng: undefined,
+            last_active: new Date().toISOString(),
+            is_verified: true,
+            is_online: false,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString(),
+        })
+
+    }
+    
+    return matchedUser
+
+}
