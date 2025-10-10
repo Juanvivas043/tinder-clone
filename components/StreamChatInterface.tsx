@@ -10,7 +10,7 @@ export default function StreamChatInterface({otherUser} : {otherUser: UserProfil
 
         async function initializeChat() {
             try {
-                const {token, userId, UserName, userImage } = await getStreamUserToken()
+                //const {token, userId, UserName, userImage } = await getStreamUserToken()
 
             } catch {
                 router.push("/chat")
