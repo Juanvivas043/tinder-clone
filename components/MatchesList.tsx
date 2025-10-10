@@ -2,23 +2,12 @@ import { getMatchesList } from "@/lib/actions/matches";
 import { UserProfile } from "@/lib/definitions";
 import Link from "next/link";
 import Image from "next/image";
+import calculateAge from "@/lib/helpers/calculateAge";
 
 export default async function MatchesList() {
     const matchesData : UserProfile[] = await getMatchesList() || []
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    
-    function calculateAge(birthdate : string) {
-        const birthDate = new Date(birthdate)
-        const today = new Date()
-        let age = today.getFullYear() - birthDate.getFullYear()
-        const month = today.getMonth() - birthDate.getMonth()
-        if (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())) {
-            age--
-        }
-        return age
-
-    }
     return (
         <div>            
             {matchesData.length === 0 ? (

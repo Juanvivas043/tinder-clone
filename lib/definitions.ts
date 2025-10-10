@@ -25,3 +25,18 @@ export interface UserPreferences {
         max: number;
     };
 }
+
+export interface ChatData {
+    id: string;
+    user_id: UserProfile;
+    lastMessage: string;
+    lastMessageTime: string;
+    unreadCount: number;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface ChatHeaderProps {
+    user: UserProfile
+    onVideoCall?: () => void 
+}

@@ -14,7 +14,7 @@ const navItems = [
         label: "Encuentros"
     },
     {
-        href: "/messages",
+        href: "/chat",
         label: "Mensajes"
     },
     {

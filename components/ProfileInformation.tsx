@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { getCurrentUserProfile } from "@/lib/actions/profile";
 import { UserProfile } from "@/lib/definitions";
+import calculateAge from "@/lib/helpers/calculateAge";
 
 
 const genderTranslations = {
@@ -17,17 +18,6 @@ export default async function ProfileInformation () {
 
     const englishGender = profile?.gender || 'other'; 
     const spanishGender = genderTranslations[englishGender] || englishGender; 
-
-    function calculateAge(birthdate : string) {
-        const birthDate = new Date(birthdate)
-        const today = new Date()
-        let age = today.getFullYear() - birthDate.getFullYear()
-        const month = today.getMonth() - birthDate.getMonth()
-        if (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())) {
-            age--
-        }
-        return age
-    }
 
     if (!profile) {
         return (
