@@ -37,6 +37,14 @@ export interface ChatData {
 }
 
 export interface ChatHeaderProps {
-    user: UserProfile
-    onVideoCall?: () => void 
+    user: UserProfile;
+    onVideoCall?: () => void;
+}
+
+export interface Message {
+    id: string;
+    text: string;
+    sender: "yo" | "otro";
+    timestamp: Date;
+    user_id: string;
 }

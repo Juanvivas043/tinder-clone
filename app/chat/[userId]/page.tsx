@@ -83,13 +83,13 @@ export default function ChatConversationPage() {
       }
 
     return (
-        <div className="h-screen bg-gradient-to-br from-pink-100 to-red-100 dark:from-gray-900 dark:form-gray-800">
+        <div className="h-screen bg-gradient-to-br from-pink-100 to-red-100 dark:from-gray-900 dark:to-gray-800">
             <div className="max-w-4xl mx-auto h-full flex flex-col">
                 <ChatHeader user={otherUser} onVideoCall={() => {}}/>
-            </div>
-
-            <div className="flex-1 min-h-0">
-                <StreamChatInterface otherUser={otherUser}/>
+            
+                <div className="flex-1 min-h-0">
+                    <StreamChatInterface otherUser={otherUser}/>
+                </div>
             </div>
         </div>
     )
