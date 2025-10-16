@@ -88,9 +88,9 @@ export default function StreamChatInterface({otherUser} : {otherUser: UserProfil
 
         }
 
-        
-        initializeChat()
-    
+        if(otherUser) {
+            initializeChat()
+        }
 
         return () => {
             if(client) {
