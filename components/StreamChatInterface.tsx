@@ -2,8 +2,6 @@
 
 import { createOrGetChannel, getStreamUserToken } from "@/lib/actions/stream";
 import { Message, UserProfile } from "@/lib/definitions";
-import { ne } from "@faker-js/faker";
-import { Currency } from "lucide-react";
 import router from "next/router";
 import { useEffect, useState } from "react";
 import { Channel, StreamChat } from "stream-chat";
@@ -90,9 +88,9 @@ export default function StreamChatInterface({otherUser} : {otherUser: UserProfil
 
         }
 
-        if(otherUser) {
-            initializeChat()
-        }
+        
+        initializeChat()
+    
 
         return () => {
             if(client) {
@@ -100,7 +98,7 @@ export default function StreamChatInterface({otherUser} : {otherUser: UserProfil
             }
         }
 
-    }, [otherUser])
+    }, [client, otherUser])
 
     function formatTime(date: Date){
         return date.toLocaleDateString([], {hour: "2-digit", minute: "2-digit"})
