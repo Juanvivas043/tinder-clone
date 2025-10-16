@@ -1,3 +1,5 @@
+"use client"
+
 import { createOrGetChannel, getStreamUserToken } from "@/lib/actions/stream";
 import { Message, UserProfile } from "@/lib/definitions";
 import { ne } from "@faker-js/faker";
@@ -98,7 +100,7 @@ export default function StreamChatInterface({otherUser} : {otherUser: UserProfil
             }
         }
 
-    }, [otherUser, client])
+    }, [otherUser])
 
     function formatTime(date: Date){
         return date.toLocaleDateString([], {hour: "2-digit", minute: "2-digit"})
