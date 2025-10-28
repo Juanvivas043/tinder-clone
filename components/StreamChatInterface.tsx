@@ -351,11 +351,13 @@ export default function StreamChatInterface({otherUser, ref} : {otherUser: UserP
                 <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
                     <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 max-w-sm mx-4 shadow-2xl">
                         <div className="text-center">
-                            <Image
-                            src={otherUser.avatar_url}
-                            alt={otherUser.full_name}
-                            fill
-                            className="object-cover"/>
+                            <div className="w-20 h-20 rounded-full overflow-hidden mx-auto mb-4 border-4 border-pink-500">
+                                <Image
+                                src={otherUser.avatar_url}
+                                alt={otherUser.full_name}
+                                fill
+                                className="object-cover"/>
+                            </div>
                         </div>
                         <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
                             Videollamada entrante
