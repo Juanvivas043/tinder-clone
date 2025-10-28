@@ -111,3 +111,69 @@ export async function createOrGetChannel(otherUserId: string){
         channelId
     }
 }
+
+export async function createVideoCall(otherUserId: string) {
+    const supabase = await createClient()
+
+    const {data: {user}} = await supabase.auth.getUser()
+
+    if (!user) {
+        return {success: false, error: "Usuario no autenticado"}
+    } 
+
+    const {data: matches, error: matchError} = await supabase.
+    from("matches").
+    select("*").
+    or(`and(user1_id.eq.${user.id}, user2_id.eq.${otherUserId}), and(user1_id.eq.${otherUserId}, user2_id.eq.${user.id})`).
+    eq("is_active", true).
+    single()
+
+    if(matchError || !matches) {
+        throw new Error("No hay match. No se puede crear un canal")
+    }
+
+    const sortedIds = [user.id, otherUserId].sort()
+    const combineIds = sortedIds.join("_")   
+
+    let hash = 0;
+        for (let i = 0; i < combineIds.length; i++) {
+          const char = combineIds.charCodeAt(i);
+          hash = (hash << 5) - hash + char;
+          hash = hash & hash;
+        }
+    
+    const callId = `call_${Math.abs(hash).toString(36)}`;
+
+    return {callId, callType: "default"}
+}
+
+export async function getStreamVideoToken() {
+    const supabase = await createClient()
+
+    const {data: {user}} = await supabase.auth.getUser()
+
+    if (!user) {
+        return {success: false, error: "Usuario no autenticado"}
+    }
+
+    const {data: userData , error: userError} = await supabase.from("users").select("full_name, avatar_url").eq("id", user.id).single()
+
+    if (userError) {
+        console.error("Fallo al cargar la data del usuario: ", userError)
+        throw new Error("Fallo al cargar la data del usuario")
+    }
+    
+    const serverClient = StreamChat.getInstance(
+        process.env.NEXT_PUBLIC_STREAM_API_KEY!,
+        process.env.STREAM_API_SECRET_KEY!
+    )
+
+    const token = serverClient.createToken(user.id)
+
+    return {
+        token,
+        userId: user.id,
+        userName: userData.full_name,
+        userImage: userData.avatar_url || undefined
+    }
+}

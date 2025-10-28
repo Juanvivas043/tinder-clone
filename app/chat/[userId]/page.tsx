@@ -7,16 +7,16 @@ import { getMatchesList } from "@/lib/actions/matches"
 import { UserProfile } from "@/lib/definitions"
 import { useParams } from "next/navigation"
 import router from "next/router"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 export default function ChatConversationPage() {
     const params = useParams()
     const [otherUser, setOtherUser] = useState<UserProfile | null>(null)
     const [loading, setLoading] = useState<boolean>(true)
     const {user} = useAuth()
-
-
     const userId = params.userId as string
+
+    const chatInterfaceRef = useRef<{ handleVideoCall: () => void } | null>(null)
 
     useEffect(() => {
         async function loadUserMatch() {
@@ -85,10 +85,12 @@ export default function ChatConversationPage() {
     return (
         <div className="h-screen bg-gradient-to-br from-pink-100 to-red-100 dark:from-gray-900 dark:to-gray-800">
             <div className="max-w-4xl mx-auto h-full flex flex-col">
-                <ChatHeader user={otherUser} onVideoCall={() => {}}/>
+                <ChatHeader user={otherUser} onVideoCall={() => {
+                    chatInterfaceRef.current?.handleVideoCall()
+                }}/>
             
                 <div className="flex-1 min-h-0">
-                    <StreamChatInterface otherUser={otherUser}/>
+                    <StreamChatInterface otherUser={otherUser} ref={chatInterfaceRef}/>
                 </div>
             </div>
         </div>

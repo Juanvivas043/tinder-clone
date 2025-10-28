@@ -23,7 +23,7 @@ export default function ChatHeader({ user, onVideoCall } : ChatHeaderProps) {
                         </div>
 
                         <div>
-                            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+                            <h2 className="text-md font-semibold text-gray-900 dark:text-white">
                                 {user.full_name}, {calculateAge(user.birthdate)}
                             </h2>
                             <p className="text-sm text-gray-500 dark:text-gray-400">
@@ -37,7 +37,7 @@ export default function ChatHeader({ user, onVideoCall } : ChatHeaderProps) {
                     <button
                       onClick={onVideoCall}
                       className="p-3 rounded-full bg-gradient-to-r from-pink-500 to-red-500 text-white hover:from-pink-600 hover:to-red-600 transition-all duration-200 shadow-lg hover:shadow-xl"
-                      title="Start Video Call"
+                      title="Comienza una videollamada"
                     >
                       <svg
                         className="w-5 h-5"

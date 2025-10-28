@@ -48,3 +48,9 @@ export interface Message {
     timestamp: Date;
     user_id: string;
 }
+
+export interface VideoCallProps {
+    callId: string
+    onCallEnd: () => void
+    isIncoming: boolean
+}
