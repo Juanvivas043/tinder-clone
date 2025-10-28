@@ -357,27 +357,27 @@ export default function StreamChatInterface({otherUser, ref} : {otherUser: UserP
                                 alt={otherUser.full_name}
                                 className="w-full h-full object-cover"/>
                             </div>
-                        </div>
-                        <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                            Videollamada entrante
-                        </h3>
-                        <p className="text-gray-600 dark:text-gray-400 mb-6">
-                            {callerName} te esta llamando
-                        </p>
-
-                        <div className="flex space-x-4">
-                            <button
-                                onClick={handleDeclineCall}
-                                className="flex-1 bg-red-500 text-white py-3 px-6 rounded-full font-semibold hover:bg-red-600 transition-colors duration-200"
-                            >
-                                Rechazar
-                            </button>
-                            <button
-                                onClick={handleAcceptCall}
-                                className="flex-1 bg-green-500 text-white py-3 px-6 rounded-full font-semibold hover:bg-green-600 transition-colors duration-200"
-                            >
-                                Aceptar
-                            </button>
+                            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                                Videollamada entrante
+                            </h3>
+                            <p className="text-gray-600 dark:text-gray-400 mb-6">
+                                {callerName} te esta llamando
+                            </p>
+                
+                            <div className="flex space-x-4">
+                                <button
+                                    onClick={handleDeclineCall}
+                                    className="flex-1 bg-red-500 text-white py-3 px-6 rounded-full font-semibold hover:bg-red-600 transition-colors duration-200"
+                                >
+                                    Rechazar
+                                </button>
+                                <button
+                                    onClick={handleAcceptCall}
+                                    className="flex-1 bg-green-500 text-white py-3 px-6 rounded-full font-semibold hover:bg-green-600 transition-colors duration-200"
+                                >
+                                    Aceptar
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
