@@ -3,7 +3,7 @@ import { VideoCallProps } from "@/lib/definitions"
 import { Call, CallControls, SpeakerLayout, StreamCall, StreamTheme, StreamVideo, StreamVideoClient } from "@stream-io/video-react-sdk"
 import { useEffect, useState } from "react"
 
-import '@stream-io/video-react-sdk/dist/css/style.css'
+import "@stream-io/video-react-sdk/dist/css/styles.css";
 
 export default function VideoCall({callId, onCallEnd, isIncoming = false}: VideoCallProps) {
     const [client, setClient] = useState<StreamVideoClient | null>(null)
