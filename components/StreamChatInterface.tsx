@@ -355,8 +355,7 @@ export default function StreamChatInterface({otherUser, ref} : {otherUser: UserP
                                 <Image
                                 src={otherUser.avatar_url}
                                 alt={otherUser.full_name}
-                                fill
-                                className="object-cover"/>
+                                className="w-full h-full object-cover"/>
                             </div>
                         </div>
                         <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
