@@ -11,7 +11,7 @@ import VideoCall from "./VideoCall";
 export default function StreamChatInterface({otherUser, ref} : {otherUser: UserProfile, ref: RefObject<{ handleVideoCall: () => void } | null>}) {
     const [loading, setLoading] = useState<boolean>(true)
     const [error, setError] = useState<boolean>(false)
-    const [userId, setCurrentUserId] = useState<string>("")
+    const [currentUserId, setCurrentUserId] = useState<string>("")
     const [messages, setMessages] = useState<Message[]>([])
     const [newMessage, setNewMessage] = useState<string>("")
 
@@ -177,7 +177,7 @@ export default function StreamChatInterface({otherUser, ref} : {otherUser: UserP
                 const messageData = {
                     text: `📸 Invitacion a videollamada`,
                     call_id: callId!,
-                    caller_id: userId,
+                    caller_id: currentUserId,
                     caller_name: otherUser.full_name || "Alguien"
                 }
 
@@ -225,7 +225,7 @@ export default function StreamChatInterface({otherUser, ref} : {otherUser: UserP
                     text: newMessage.trim(),
                     sender: "yo",
                     timestamp: new Date(),
-                    user_id: userId
+                    user_id: currentUserId
 
                 }
 
@@ -353,9 +353,11 @@ export default function StreamChatInterface({otherUser, ref} : {otherUser: UserP
                         <div className="text-center">
                             <div className="w-20 h-20 rounded-full overflow-hidden mx-auto mb-4 border-4 border-pink-500">
                                 <Image
+                                width={100}
+                                height={100}
                                 src={otherUser.avatar_url}
                                 alt={otherUser.full_name}
-                                className="w-full h-full object-cover"/>
+                                objectFit="cover"/>
                             </div>
                             <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
                                 Videollamada entrante
