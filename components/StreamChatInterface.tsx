@@ -7,6 +7,7 @@ import { RefObject, useEffect, useImperativeHandle, useRef, useState } from "rea
 import { Channel, StreamChat } from "stream-chat";
 import Image from "next/image";
 import VideoCall from "./VideoCall";
+import { Event } from "stream-chat";
 
 export default function StreamChatInterface({otherUser, ref} : {otherUser: UserProfile, ref: RefObject<{ handleVideoCall: () => void } | null>}) {
     const [loading, setLoading] = useState<boolean>(true)
@@ -14,6 +15,7 @@ export default function StreamChatInterface({otherUser, ref} : {otherUser: UserP
     const [currentUserId, setCurrentUserId] = useState<string>("")
     const [messages, setMessages] = useState<Message[]>([])
     const [newMessage, setNewMessage] = useState<string>("")
+    const [isTyping, setIsTyping] = useState<boolean>(false)
 
     const [showScrollBottom, setShowScrollButton] = useState<boolean>(false) 
 
@@ -137,6 +139,18 @@ export default function StreamChatInterface({otherUser, ref} : {otherUser: UserP
                     }
                 })
 
+                chatChannel.on("typing.start", (event: Event) => {
+                  if (event.user?.id !== userId) {
+                    setIsTyping(true);
+                  }
+                });
+
+                chatChannel.on("typing.stop", (event: Event) => {
+                    if (event.user?.id !== userId) {
+                        setIsTyping(false);
+                    }
+                });
+
                 setClient(chatClient)
                 setChannel(chatChannel)
                 
@@ -194,6 +208,15 @@ export default function StreamChatInterface({otherUser, ref} : {otherUser: UserP
     useImperativeHandle(ref, () => ({
         handleVideoCall
     }))
+
+    function handleCallEnd() {
+        setVideoCallId("")
+        setShowVideoCall(false)
+        setShowIncomingCall(false)
+        setIncomingCallId("")
+        setCallerName("")
+        setIsCallInitiator(false)
+    }
 
     function handleDeclineCall() {
         setShowIncomingCall(false)
@@ -289,6 +312,25 @@ export default function StreamChatInterface({otherUser, ref} : {otherUser: UserP
                     </div>
                 ))}
 
+                {isTyping && (
+                    <div className="flex justify-start">
+                        <div className="bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white px-4 py-2 rounded-2xl">
+                            <div className="flex space-x-1">
+                                <div 
+                                    className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                                <div 
+                                    className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                                    style={{animationDelay: "0.1s"}}>
+                                </div>
+                                <div 
+                                    className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                                    style={{animationDelay: "0.2s"}}>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
                 <div ref={messagesEndRef}/>
             </div>
 
@@ -321,7 +363,17 @@ export default function StreamChatInterface({otherUser, ref} : {otherUser: UserP
                     <input 
                     type="text"
                     value={newMessage}
-                    onChange={(e) =>setNewMessage(e.target.value)}
+                    onChange={(e) =>{
+                        setNewMessage(e.target.value)
+                        if(channel && e.target.value.length > 0) {
+                            channel.keystroke()
+                        }
+                    }}
+                    onFocus={(e) => {
+                       if(channel) {
+                        channel.keystroke()
+                       } 
+                    }}
                     className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-full focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent dark:bg-gray-800 dark:text-white"
                     disabled={!channel}/>
 
@@ -386,7 +438,10 @@ export default function StreamChatInterface({otherUser, ref} : {otherUser: UserP
             )}
 
             {showVideoCall && videoCallId && (
-                <VideoCall onCallEnd={() => console.log("Llamada cerrada")} callId={videoCallId} isIncoming={!isCallInitiator}/>
+                <VideoCall 
+                    onCallEnd={handleCallEnd} 
+                    callId={videoCallId} 
+                    isIncoming={!isCallInitiator}/>
             )}
         </div>
     )
