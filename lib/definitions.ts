@@ -18,7 +18,7 @@ export interface UserProfile {
 }
 
 export interface UserPreferences {
-    gender_preferences: "male" | "female" | "other";
+    gender_preferences: ("male" | "female" | "other")[];
     distance: number;
     age_range: {
         min: number;

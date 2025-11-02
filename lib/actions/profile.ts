@@ -58,11 +58,18 @@ export async function updateUserProfile(profileData: Partial<UserProfile>) {
         return {success: false, error: "Usuario no autenticado"}
     }
 
+    const preferencesPayload = { 
+        age_range: profileData.preferences?.age_range || {min: 18, max: 99},
+        distance: profileData.preferences?.distance || 50,
+        gender_preference: profileData.preferences?.gender_preferences || [], // Aquí va el array (ej: ["male", "other"])
+    };
+
     const {error} = await supabase.from("users").update({
         full_name: profileData.full_name,
         username: profileData.username,
         bio: profileData.bio,
         gender: profileData.gender,
+        preferences: preferencesPayload,
         birthdate: profileData.birthdate,
         avatar_url: profileData.avatar_url,
         updated_at: new Date().toISOString()

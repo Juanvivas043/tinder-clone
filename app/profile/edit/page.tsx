@@ -17,6 +17,14 @@ export default function EditProfilePage() {
         username: "",
         bio: "",
         gender: "male" as "male" | "female" | "other",
+        preferences: {
+            gender_preferences: [] as ("male" | "female" | "other")[], 
+            distance: 50,
+            age_range: {
+                min: 18, 
+                max: 50,
+            },
+        },
         birthdate: "",
         avatar_url: ""
     })
@@ -31,6 +39,11 @@ export default function EditProfilePage() {
                     username: profile.username || "",
                     bio: profile.bio || "",
                     gender: profile.gender || "male",
+                    preferences: {
+                        gender_preferences: profile.preferences?.gender_preference || [],
+                        distance: profile.preferences?.distance || 50,
+                        age_range: profile.preferences?.age_range || {min: 18, max: 99},
+                    },
                     birthdate: profile.birthdate || "",
                     avatar_url: profile.avatar_url || ""
                 })
@@ -47,6 +60,7 @@ export default function EditProfilePage() {
     }, [])
 
     async function handleFormSubmit(e: React.FormEvent){
+
         e.preventDefault()
         setSaving(true)
         setError(null)
@@ -74,6 +88,31 @@ export default function EditProfilePage() {
             ...prev,
             [name]: value,
         }))
+    }
+
+    function handleGenderPreferenceChange(e: React.ChangeEvent<HTMLInputElement>) {
+        const {value, checked} = e.target
+        setFormData((prev) => {
+            const currentPreferences = prev.preferences.gender_preferences
+            if (checked) {
+                return{
+                    ...prev,
+                    preferences: {
+                        ...prev.preferences,
+                        gender_preferences: [...currentPreferences, value] as typeof currentPreferences
+                    }
+                }
+
+            } else {
+                return {
+                    ...prev,
+                    preferences: {
+                        ...prev.preferences,
+                        gender_preferences: currentPreferences.filter(pref => pref !== value)
+                    }
+                }
+            }
+        })
     }
 
     if (loading) {
@@ -219,7 +258,7 @@ export default function EditProfilePage() {
                             </div>
                         </div>
 
-                        <div className="mb-8">
+                        <div className="mb-6">
                             <label 
                                 htmlFor="bio"
                                 className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
@@ -240,6 +279,72 @@ export default function EditProfilePage() {
                             <p className="text-sm text-gray-500 dark:text-gray-400">
                                 {formData.bio.length} / 500 caracteres
                             </p>
+                        </div>
+                        
+                        <div>
+                            <h3 className="text-md font-semibold mb-4">
+                                Preferencias
+                            </h3>
+                            <div className="grid grid-cols-1 md:grid-cols-2 mb-6 gap-6">
+                                <div>
+                                    <label 
+                                        htmlFor="gender"
+                                        className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                                    >Género</label>
+                                    <div className="flex items-center justify-between pl-3 max-w-1/2 mb-3">
+                                        <label 
+                                            htmlFor="male"
+                                            className="text-sm font-medium">Masculino</label>
+                                        <input
+                                            type="checkbox"
+                                            id="male"
+                                            name="male"
+                                            value="male"
+                                            onChange={handleGenderPreferenceChange}
+                                            checked={formData.preferences.gender_preferences.includes("male")}
+                                            className="h-4 w-4 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                                            >
+                                        </input>    
+                                    </div>
+                                    <div className="flex items-center justify-between pl-3 max-w-1/2 mb-3">
+                                        <label 
+                                            htmlFor="female"
+                                            className="text-sm font-medium">Femenino</label>
+                                        <input
+                                            type="checkbox"
+                                            id="female"
+                                            name="female"
+                                            value="female"
+                                            onChange={handleGenderPreferenceChange}
+                                            checked={formData.preferences.gender_preferences.includes("female")}
+                                            className="h-4 w-4 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                                            >
+                                        </input>    
+                                    </div>
+                                    <div className="flex items-center justify-between pl-3 max-w-1/2 mb-3">
+                                        <label 
+                                            htmlFor="other"
+                                            className="text-sm font-medium">Otros</label>
+                                        <input
+                                            type="checkbox"
+                                            id="other"
+                                            name="other"
+                                            value="other"
+                                            onChange={handleGenderPreferenceChange}
+                                            checked={formData.preferences.gender_preferences.includes("other")}
+                                            className="h-4 w-4 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                                            >
+                                        </input>    
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label 
+                                        htmlFor="distance"
+                                        className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                                    >Distancia</label>
+                                </div>
+                            </div>
                         </div>
 
                         {error && (
