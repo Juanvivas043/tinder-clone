@@ -353,7 +353,7 @@ export default function EditProfilePage() {
                             >Géneros</label>
 
                             <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-                                <div className="flex items-center justify-between max-w-2/3 pl-3">
+                                <div className="flex items-center justify-between pl-3">
                                     <label 
                                         htmlFor="male"
                                         className="text-sm font-medium">Masculinos</label>
@@ -368,7 +368,7 @@ export default function EditProfilePage() {
                                         >
                                     </input>    
                                 </div>
-                                <div className="flex items-center justify-between pl-3 max-w-2/3">
+                                <div className="flex items-center justify-between pl-3">
                                     <label 
                                         htmlFor="female"
                                         className="text-sm font-medium">Femeninos</label>
@@ -383,7 +383,7 @@ export default function EditProfilePage() {
                                         >
                                     </input>    
                                 </div>
-                                <div className="flex items-center justify-between pl-3 max-w-2/3">
+                                <div className="flex items-center justify-between pl-3">
                                     <label 
                                         htmlFor="other"
                                         className="text-sm font-medium">Otros</label>
