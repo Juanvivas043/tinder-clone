@@ -12,12 +12,22 @@ const genderTranslations = {
 
 };
 
+const genderPreferenceTranslations = {
+    'male': 'Masculinos',
+    'female': 'Femeninos',
+    'other': 'Otros',
+}
+
 export default async function ProfileInformation () {
     const profile : UserProfile | null = await getCurrentUserProfile()
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    const englishGender = profile?.gender || 'other'; 
-    const spanishGender = genderTranslations[englishGender] || englishGender; 
+    const englishGender = profile?.gender || 'other';
+    const englishGenderPreference = profile?.preferences?.gender_preference || [];
+    const spanishGender = genderTranslations[englishGender] || englishGender;
+    const spanishGenderPreference = englishGenderPreference.map(gender => genderPreferenceTranslations[gender] || gender);
+
+
 
     if (!profile) {
         return (
@@ -130,6 +140,23 @@ export default async function ProfileInformation () {
                                     </div>
                                 </div>
                             </div>
+
+                            <div>
+                                <label 
+                                    htmlFor="gender"
+                                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                                >Géneros</label>
+                                <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                                    {spanishGenderPreference.map((gender) => (
+                                        <div key={gender} className="flex items-center justify-start">
+                                            <span className="text-gray-700 dark:text-gray-300 capitalize m-1 border border-gray-300 dark:border-gray-600 rounded-full px-2 py-1">
+                                                {gender}
+                                            </span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                            
                         </div>
                     </div>
                 </div>
