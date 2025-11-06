@@ -22,7 +22,7 @@ export default function Home() {
                     App de Citas
                 </h1>
                 <p className="text-lg text-gray-300 mb-5 ">
-                    Matching es una app de citas que permite a los usuarios encontrarse con personas compatibles basándose en sus preferencias y intereses.
+                    Matching es una app de citas que permite a los usuarios encontrarse con personas compatibles basándose en sus preferencias y intereses. Es una app diseñada para practicar la conexión y el desarrollo web moderno.
                 </p>
             </div>
         </div>

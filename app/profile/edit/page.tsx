@@ -288,15 +288,21 @@ export default function EditProfilePage() {
                                         htmlFor="distance"
                                         className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
                                     >Distancia</label>
-                                    <input 
-                                        type="text" 
-                                        id="distance"
-                                        name="distance"
-                                        value={formData.preferences.distance}
-                                        onChange={handlePreferencesChange}
-                                        className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
-                                        placeholder="Introduce tu distancia de otros preferida"
-                                    />
+                                    <div className="flex items-center gap-3">
+                                        <input 
+                                            type="text" 
+                                            id="distance"
+                                            name="distance"
+                                            value={formData.preferences.distance}
+                                            onChange={handlePreferencesChange}
+                                            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                                            placeholder="Introduce tu distancia de otros preferida"
+                                        />
+                                        <label 
+                                            htmlFor="km"
+                                            className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                                        >km</label>
+                                    </div>
                                 </div>
 
                                 <div>
@@ -305,12 +311,8 @@ export default function EditProfilePage() {
                                         className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
                                     >Rango de Edad</label>
 
-                                    <div className="grid grid-cols-2">
-                                        <div className="flex items-center gap-3">
-                                            <label 
-                                                htmlFor="min"
-                                                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                                            >Min</label>
+                                    <div className="grid grid-cols-2 gap-3">
+                                        <div className="flex items-center gap-2 md:px-2">
                                             <input 
                                                 type="number" 
                                                 id="min"
@@ -319,16 +321,16 @@ export default function EditProfilePage() {
                                                 name="min"
                                                 value={formData.preferences.age_range.min}
                                                 onChange={handlePreferencesChange}
-                                                className="w-1/2 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                                                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
                                                 placeholder="Introduce tu edad mínima"
                                             />
+                                            <label 
+                                                htmlFor="min"
+                                                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                                            >Min</label>
                                         </div>
 
-                                        <div className="flex items-center gap-3">
-                                            <label 
-                                                htmlFor="max"
-                                                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                                            >Max</label>
+                                        <div className="flex items-center gap-2 md:px-2">
                                             <input 
                                                 type="number" 
                                                 id="max"
@@ -337,9 +339,13 @@ export default function EditProfilePage() {
                                                 min={18}
                                                 value={formData.preferences.age_range.max}
                                                 onChange={handlePreferencesChange}
-                                                className="w-1/2 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                                                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
                                                 placeholder="Introduce tu edad máxima"
                                             />
+                                            <label 
+                                                htmlFor="max"
+                                                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                                            >Max</label>
                                         </div>
                                     </div>
                                 </div>
