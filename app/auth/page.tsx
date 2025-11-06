@@ -123,7 +123,7 @@ export default function AuthPage () {
                     <div className="text-center">
                         <a
                         onClick={() => setIsSignUp(!isSingUp)}
-                        className="text-pink-600 dark:text-pink-400 hover:text-pink-500 dark:hover:text-pink-300 text-sm"
+                        className="text-pink-600 dark:text-pink-400 hover:text-pink-500 dark:hover:text-pink-300 text-sm underline cursor-pointer"
                         >
                             {isSingUp ? 'Ya tienes una cuenta? Inicia Sesion' : 'No tienes cuenta? Crea una'}
                         </a>
