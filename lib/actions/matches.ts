@@ -2,10 +2,10 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { UserProfile } from "../definitions";
-import { error } from "console";
+import calculateAge from "../helpers/calculateAge";
+import CalculateDistance from "../helpers/calculateDistance";
 
 type ActionResult = { success: true } | { success: false, message: string };
-
 
 export default async function getPotentialMatches(): Promise<UserProfile[]> {
     const supabase = await createClient()
@@ -30,13 +30,44 @@ export default async function getPotentialMatches(): Promise<UserProfile[]> {
 
     const currentUserPrefs = userPrefs.preferences
     const genderPreferences = currentUserPrefs?.gender_preference || []
-
+    const ageMinPreference = currentUserPrefs?.age_range?.min || 0
+    const ageMaxPreference = currentUserPrefs?.age_range?.max || 100
+    const distancePreference = currentUserPrefs?.distance || 50
     const filteredMatches = potentialMatches.filter((match) => {
-        if (!genderPreferences || genderPreferences.length === 0 ) {
-            return true
+
+        const meetsGenderCriteria = 
+            genderPreferences.length === 0 || 
+            genderPreferences.includes(match.gender);
+        
+        if (!meetsGenderCriteria) {
+            return false; 
         }
 
-        return genderPreferences.includes(match.gender)
+        const matchAge = calculateAge(match.birthdate);
+        const meetsAgeCriteria = 
+            matchAge >= ageMinPreference && 
+            matchAge <= ageMaxPreference;
+        
+        if (!meetsAgeCriteria) {
+            return false; 
+        }
+
+        const locationLat = match.location_lat || 0
+        const locationLng = match.location_lng || 0
+        const distance = CalculateDistance(
+            locationLat,
+            locationLng,
+            currentUserPrefs.location_lat || 0,
+            currentUserPrefs.location_lng || 0
+        )
+
+        const meetsDistanceCriteria = distance <= distancePreference
+
+        if (!meetsDistanceCriteria) {
+            return false; 
+        }
+
+        return true
     }).map((match) => ({
         id: match.id,
         full_name: match.full_name,
