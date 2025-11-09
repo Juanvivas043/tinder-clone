@@ -22,6 +22,13 @@ export default async function getPotentialMatches(): Promise<UserProfile[]> {
         throw new Error("Fallo al cargar las potenciales parejas")
     }
 
+    const {data: likesFromUser, error: likeError} = await supabase.from("likes").select("*").eq("from_user_id", user.id)
+
+    if (likeError) {
+        throw new Error("Fallo al cargar los likes del usuario")
+    }
+
+    
     const {data: userPrefs, error: prefsError} = await supabase.from("users").select("preferences").eq("id", user.id).single()
 
     if (prefsError) {
@@ -33,6 +40,7 @@ export default async function getPotentialMatches(): Promise<UserProfile[]> {
     const ageMinPreference = currentUserPrefs?.age_range?.min || 0
     const ageMaxPreference = currentUserPrefs?.age_range?.max || 100
     const distancePreference = currentUserPrefs?.distance || 50
+    const UsersLiked = likesFromUser?.map((like) => like.to_user_id) || []
     const filteredMatches = potentialMatches.filter((match) => {
 
         const meetsGenderCriteria = 
@@ -65,6 +73,12 @@ export default async function getPotentialMatches(): Promise<UserProfile[]> {
 
         if (!meetsDistanceCriteria) {
             return false; 
+        }
+
+        const isLiked = UsersLiked.includes(match.id)
+
+        if (isLiked) {
+            return false
         }
 
         return true

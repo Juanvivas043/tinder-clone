@@ -33,7 +33,6 @@ export default function ChatConversationPage() {
             try {
                 const usersMatches = await getMatchesList()
                 const matchedUser = usersMatches.find((match) => match.id === userId)
-
                 if (matchedUser) {
                     setOtherUser(matchedUser)
                 } else {

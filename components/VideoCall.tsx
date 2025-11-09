@@ -16,8 +16,10 @@ export default function VideoCall({callId, onCallEnd, isIncoming = false}: Video
         let isMounted = true
 
         async function InitializeVideoCall() {
-
+console.log(hasJoined)
             if(hasJoined) return
+
+            
 
             try {
                 setError(null)

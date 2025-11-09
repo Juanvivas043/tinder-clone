@@ -2,7 +2,7 @@
 
 import { createOrGetChannel, createVideoCall, getStreamUserToken } from "@/lib/actions/stream";
 import { Message, UserProfile } from "@/lib/definitions";
-import router from "next/router";
+import { useRouter } from "next/navigation";
 import { RefObject, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { Channel, StreamChat } from "stream-chat";
 import Image from "next/image";
@@ -16,7 +16,8 @@ export default function StreamChatInterface({otherUser, ref} : {otherUser: UserP
     const [messages, setMessages] = useState<Message[]>([])
     const [newMessage, setNewMessage] = useState<string>("")
     const [isTyping, setIsTyping] = useState<boolean>(false)
-
+    const [currentUserName, setCurrentUserName] = useState<string>("")
+    const router = useRouter()
     const [showScrollBottom, setShowScrollButton] = useState<boolean>(false) 
 
     const [client, setClient] = useState<StreamChat | null>(null)
@@ -62,6 +63,8 @@ export default function StreamChatInterface({otherUser, ref} : {otherUser: UserP
 
     useEffect(() => {
 
+        console.log(otherUser.full_name)
+
         setShowVideoCall(false)
         setShowIncomingCall(false)
         setVideoCallId("")
@@ -73,6 +76,7 @@ export default function StreamChatInterface({otherUser, ref} : {otherUser: UserP
             try {
                 const {token, userId, userName, userImage } = await getStreamUserToken()
                 setCurrentUserId(userId!)
+                setCurrentUserName(userName || "")
 
                 const chatClient = StreamChat.getInstance(
                     process.env.NEXT_PUBLIC_STREAM_API_KEY!
@@ -107,7 +111,6 @@ export default function StreamChatInterface({otherUser, ref} : {otherUser: UserP
                         if(event.message.text?.includes(`📸 Invitacion a videollamada`)) {
                             // eslint-disable-next-line @typescript-eslint/no-explicit-any
                             const customData = event.message as any
-
                             if(customData.caller_id !== userId) {
                                 setIncomingCallId(customData.call_id)
                                 setCallerName(customData.caller_name || "Alguien")
@@ -190,9 +193,9 @@ export default function StreamChatInterface({otherUser, ref} : {otherUser: UserP
             if (channel) {
                 const messageData = {
                     text: `📸 Invitacion a videollamada`,
-                    call_id: callId!,
+                    call_id: callId,
                     caller_id: currentUserId,
-                    caller_name: otherUser.full_name || "Alguien"
+                    caller_name: currentUserName || "Alguien"
                 }
 
                 await channel.sendMessage(messageData)
@@ -200,8 +203,6 @@ export default function StreamChatInterface({otherUser, ref} : {otherUser: UserP
             
         } catch(error) {
             console.error(error)
-        } finally {
-
         }
     }
 
