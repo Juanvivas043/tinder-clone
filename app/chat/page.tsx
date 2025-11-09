@@ -11,6 +11,7 @@ export default function ChatPage(){
     const [chats, setChats] = useState<ChatData[]>([])
 
     useEffect(() => {
+
         async function loadMatches() {
             try {
                 const matches = await getMatchesList()
@@ -30,9 +31,7 @@ export default function ChatPage(){
                 setLoading(false)
             }
         }
-
         loadMatches()
-
     }, [])
 
     function formatTime(timestamp: string) {

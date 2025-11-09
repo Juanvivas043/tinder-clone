@@ -4,7 +4,7 @@ import MatchDataLoaderComponent from "@/components/MatchDataLoaderComponent";
 import MatchCardSkeleton from "@/components/MatchCardSkeleton";
 
 export default function MatchesPage() {
-    
+
     return (
         <div className="min-h-screen overflow-y-auto bg-gradient-to-br from-pink-100 to-red-100 dark:from-gray-900 dark:to-gray-800">
             <div className="container mx-auto px-4 py-8">

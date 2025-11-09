@@ -13,12 +13,22 @@ export default function ChatConversationPage() {
     const params = useParams()
     const [otherUser, setOtherUser] = useState<UserProfile | null>(null)
     const [loading, setLoading] = useState<boolean>(true)
+    const [notificationPermission, setNotificationPermission] = useState<boolean>(false)
+    const [swRegistration, setSwRegistration] = useState<ServiceWorkerRegistration>()
     const {user} = useAuth()
     const userId = params.userId as string
 
     const chatInterfaceRef = useRef<{ handleVideoCall: () => void } | null>(null)
 
     useEffect(() => {
+
+        async function swRegistration() {
+            const permission = await checkPermissionNotification()
+            if (permission !== "granted") return
+            const swRegistration = await registerServiceWorker()
+            setSwRegistration(swRegistration)
+        }
+        
         async function loadUserMatch() {
             try {
                 const usersMatches = await getMatchesList()
@@ -40,10 +50,29 @@ export default function ChatConversationPage() {
 
         if(user) {
             loadUserMatch()
+            swRegistration()
         }
 
     }, [userId, user])
 
+    async function requestPermissionNotification() {
+        const permission = await Notification.requestPermission()
+        if (permission !== "granted") return 
+        setNotificationPermission(true)
+        return permission
+    }
+
+    async function registerServiceWorker() {
+        if (!("serviceWorker" in navigator)) return
+        const swRegistration = await navigator.serviceWorker.register("/sw.js")
+        return swRegistration
+    }
+
+    async function checkPermissionNotification() {
+        if (notificationPermission) return 
+        const permission = await requestPermissionNotification()
+        return permission
+    }
 
     if (loading) {
         return (
@@ -93,6 +122,10 @@ export default function ChatConversationPage() {
                     <StreamChatInterface otherUser={otherUser} ref={chatInterfaceRef}/>
                 </div>
             </div>
+
+            {/* <button onClick={() => swRegistration?.showNotification("Hola")}>
+                Mostrar notificación
+            </button> */}
         </div>
     )
 }

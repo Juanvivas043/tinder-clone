@@ -1,25 +1,19 @@
 "use client"
 
 import { useAuth } from "@/context/auth-context";
+import Image from "next/image";
 
 export default function Home() {
     const {user} = useAuth()
 
     return (
-        <div 
-            style={{
-                backgroundImage: 'url(/background.webp)',
-            }}
-            className="
-                relative
-                min-h-screen flex flex-col items-center justify-center 
-                p-3 w-full h-full bg-cover bg-center bg-no-repeat
-                before:content-['']            
-                before:absolute 
-                before:inset-0 
-                before:bg-black/75 
-            "
-        >
+        <div className=" relative min-h-screen flex flex-col items-center justify-center p-3 w-full h-full bg-cover bg-center bg-no-repeat before:content-[''] before:absolute before:inset-0 before:bg-black/75">
+            <Image 
+            src="/background.webp" 
+            alt="background" 
+            fill
+            priority={true}
+            className="object-cover -z-10"/>
             {
                 user ? (
                     <div className="flex flex-col max-w-145 z-10 text-justify px-10 py-10">
