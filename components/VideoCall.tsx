@@ -16,10 +16,8 @@ export default function VideoCall({callId, onCallEnd, isIncoming = false}: Video
         let isMounted = true
 
         async function InitializeVideoCall() {
-console.log(hasJoined)
-            if(hasJoined) return
 
-            
+            if(hasJoined) return
 
             try {
                 setError(null)
@@ -54,16 +52,6 @@ console.log(hasJoined)
                 setCall(videoCall)
                 setHasJoined(true)
 
-                return () => {
-                    isMounted = false
-                    if (call && hasJoined) {
-                        call.leave()
-                    }
-
-                    if (client) {
-                        client.disconnectUser()
-                    }
-                }
             } catch (error) {
                 console.error(error)
                 setError("Fallo al iniciar la llamada")
@@ -74,7 +62,17 @@ console.log(hasJoined)
 
         InitializeVideoCall()
 
-    }, [callId, isIncoming])
+        return () => {
+            isMounted = false;
+            if (call && hasJoined) {
+              call.leave();
+            }
+        
+            if (client) {
+              client.disconnectUser();
+            }
+    };
+    }, [callId, isIncoming, hasJoined])
 
     if (loading) {
         return (

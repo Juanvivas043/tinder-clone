@@ -63,8 +63,6 @@ export default function StreamChatInterface({otherUser, ref} : {otherUser: UserP
 
     useEffect(() => {
 
-        console.log(otherUser.full_name)
-
         setShowVideoCall(false)
         setShowIncomingCall(false)
         setVideoCallId("")

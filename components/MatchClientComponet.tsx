@@ -6,12 +6,14 @@ import MatchCard from "@/components/MatchCard";
 import MatchButtons from "./MatchButtons";
 import { likeUser } from "@/lib/actions/matches";
 import MatchNotification from "./MatchNotification";
+import { useRouter } from "next/navigation";
 
 export default function ClientMatches({ potentialMatches }: {potentialMatches: UserProfile[]}) {
     const [currentIndex, setCurrentIndex] = useState<number>(0);
     const [showMatchNotification, setShowMatchNotification] = useState<boolean>(false)
     const [matchUser, setMatchUser] = useState<UserProfile | null>(null)
-
+    const router = useRouter()
+    
     const currentPotentialMatch = potentialMatches[currentIndex]
 
     async function handleLike() {
@@ -43,11 +45,11 @@ export default function ClientMatches({ potentialMatches }: {potentialMatches: U
     }
 
     function handleCloseMatchNotification() {
-
+        setShowMatchNotification(false)
     }
 
     function handleStartChat() {
-
+        router.push(`/chat/${matchUser?.id}`)
     }
 
     if (currentIndex >= potentialMatches.length) {
